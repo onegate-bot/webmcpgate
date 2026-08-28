@@ -24,12 +24,12 @@ const config: TargetConfig = {
   minPassingScore: gateScore
 };
 
-runAgentReadinessAudit(config).then(({ passed, totalScore }) => {
-  if (!passed) {
-    console.error(`\n❌ [webmcpgate] Readiness score ${totalScore.toFixed(2)} is below the required gate threshold of ${gateScore}. Failing CI!`);
+runAgentReadinessAudit(config).then(({ passed, finalScore }) => {
+  if (!passed || finalScore < gateScore) {
+    console.error(`\n❌ [webmcpgate] Readiness score ${finalScore.toFixed(2)} is below the required gate threshold of ${gateScore}. Failing CI!`);
     process.exit(1);
   } else {
-    console.log(`\n✅ [webmcpgate] Readiness score ${totalScore.toFixed(2)} meets or exceeds required gate threshold of ${gateScore}.`);
+    console.log(`\n✅ [webmcpgate] Readiness score ${finalScore.toFixed(2)} meets or exceeds required gate threshold of ${gateScore}.`);
     process.exit(0);
   }
 }).catch((err) => {

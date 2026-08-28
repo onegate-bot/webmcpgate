@@ -2,12 +2,14 @@
   "name": "webmcpgate",
   "version": "1.0.0",
   "description": "Universal Autonomous Agent Readiness and WebMCP Test Harness & Gatekeeper for CI/CD and Web Crawlers",
-  "main": "agent-readiness/engine.ts",
+  "main": "dist/agent-readiness/engine.js",
+  "types": "dist/agent-readiness/engine.d.ts",
   "bin": {
-    "webmcpgate": "./agent-readiness/cli.ts"
+    "webmcpgate": "dist/agent-readiness/cli.js"
   },
   "scripts": {
-    "audit": "ts-node agent-readiness/cli.ts",
+    "build": "tsc",
+    "audit": "node dist/agent-readiness/cli.js",
     "test:unit": "vitest run tests/unit",
     "test:integration": "vitest run tests/integration",
     "test": "vitest run"
