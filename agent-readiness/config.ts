@@ -21,7 +21,7 @@ export interface TargetConfig {
 
 export const defaultConfig: TargetConfig = {
   baseUrl: process.env.TARGET_URL || 'https://dev.zivisaiah.com',
-  minPassingScore: parseFloat(process.env.AGENT_SCORE_GATE || '9.0'),
+  minPassingScore: parseFloat(process.env.AGENT_SCORE_GATE || '9.45'),
   discovery: {
     endpoints: [
       '/.well-known/webmcp.json',
