@@ -1,0 +1,37 @@
+{
+  "name": "webmcpgate",
+  "version": "1.0.0",
+  "description": "Universal Autonomous Agent Readiness and WebMCP Test Harness & Gatekeeper for CI/CD and Web Crawlers",
+  "main": "agent-readiness/engine.ts",
+  "bin": {
+    "webmcpgate": "./agent-readiness/cli.ts"
+  },
+  "scripts": {
+    "audit": "ts-node agent-readiness/cli.ts",
+    "test:unit": "vitest run tests/unit",
+    "test:integration": "vitest run tests/integration",
+    "test": "vitest run"
+  },
+  "keywords": [
+    "webmcp",
+    "ai-agent",
+    "agent-readiness",
+    "mcp",
+    "json-ld",
+    "aart",
+    "llms-txt",
+    "ci-gatekeeper"
+  ],
+  "author": "Ziv Isaiah",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.7.0",
+    "cheerio": "^1.0.0-rc.12"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.0",
+    "vitest": "^1.6.0"
+  }
+}

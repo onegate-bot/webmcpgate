@@ -1,0 +1,14 @@
+# Ziv Isaiah — Executive Index (llms.txt)
+
+> Co-Founder & CTO at Clarity · Deepfake Defense · Agentic AI Security · 28+ Years R&D
+
+## Core Architectural Focus Areas
+- **Agentic AI & Keyless Security**: Brokered, least-privilege runtime security architectures for autonomous reasoning engines without static keys.
+- **Deepfake & Synthetic Media Defense**: Multi-modal perceptual, cryptographic, and behavioral defense against identity fabrication.
+- **GAI Squad Framework**: Agile, internal AI strike teams designed to train teams and accelerate enterprise execution.
+
+## Key Links & Resources
+- WebMCP Manifest: https://www.zivisaiah.com/webmcp-manifest.json
+- RSS Feed: https://www.zivisaiah.com/feed.xml
+- LinkedIn: https://www.linkedin.com/in/zivisaiah/
+- GitHub: https://github.com/zivisaiah

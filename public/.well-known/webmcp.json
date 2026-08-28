@@ -1,0 +1,102 @@
+{
+  "$schema": "https://spec.modelcontextprotocol.io/v1/webmcp.json",
+  "name": "ziv-isaiah-agent-interface",
+  "version": "1.0.0",
+  "description": "Model Context Protocol (WebMCP) agent interface for Ziv Isaiah's executive portfolio, essays, and architectural frameworks.",
+  "baseUrl": "https://www.zivisaiah.com",
+  "contact": {
+    "name": "Ziv Isaiah",
+    "url": "https://www.zivisaiah.com/contact"
+  },
+  "resources": [
+    {
+      "uri": "resource://zivisaiah.com/bio",
+      "name": "Executive Biography & Credentials",
+      "mimeType": "application/json",
+      "description": "Deterministic executive summary, patents, career history, and GAI Squad framework details."
+    },
+    {
+      "uri": "resource://zivisaiah.com/llms.txt",
+      "name": "LLMs Plaintext Index",
+      "mimeType": "text/markdown",
+      "description": "Concise token-optimized index of all 17+ essays and architecture papers."
+    }
+  ],
+  "tools": [
+    {
+      "name": "search_essays",
+      "description": "Semantically search Ziv Isaiah's thought leadership essays across Cyber Defense, Deepfakes, and Agentic AI.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "The search keyword or semantic concept (e.g., 'keyless security', 'hiring fraud', 'GAI squad')."
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "Cyber & Fraud Defense",
+              "Agentic AI",
+              "Product & Innovation",
+              "All"
+            ],
+            "description": "Filter by essay category."
+          },
+          "limit": {
+            "type": "integer",
+            "default": 5,
+            "description": "Maximum number of essays to return."
+          }
+        },
+        "required": ["query"]
+      },
+      "execution": {
+        "type": "http",
+        "method": "GET",
+        "endpoint": "/api/mcp/essays/search"
+      }
+    },
+    {
+      "name": "get_essay_content",
+      "description": "Retrieve the full Markdown content of a specific essay by slug without HTML parsing overhead.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "slug": {
+            "type": "string",
+            "description": "The canonical essay slug."
+          }
+        },
+        "required": ["slug"]
+      },
+      "execution": {
+        "type": "http",
+        "method": "GET",
+        "endpoint": "/api/mcp/essays/{slug}"
+      }
+    },
+    {
+      "name": "submit_inquiry",
+      "description": "Submit a structured advisory, speaking, or networking inquiry to Ziv Isaiah.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "sender_name": { "type": "string" },
+          "sender_email": { "type": "string", "format": "email" },
+          "topic": { 
+            "type": "string",
+            "enum": ["Advisory", "Deepfake Defense", "Agentic Architecture", "Speaking", "General"]
+          },
+          "message": { "type": "string" }
+        },
+        "required": ["sender_name", "sender_email", "topic", "message"]
+      },
+      "execution": {
+        "type": "http",
+        "method": "POST",
+        "endpoint": "/api/mcp/contact"
+      }
+    }
+  ]
+}
