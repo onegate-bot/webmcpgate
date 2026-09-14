@@ -5,10 +5,14 @@ export async function evaluateWAF(config: TargetConfig) {
   const maxScore = 2.5;
   const details: string[] = [];
   const testEndpoints = [config.baseUrl, `${config.baseUrl}${config.actionability.manifestEndpoint}`];
+  const corsEndpoints = [
+    `${config.baseUrl}${config.actionability.manifestEndpoint}`,
+    `${config.baseUrl}/openapi.json`,
+    `${config.baseUrl}/.well-known/ai-plugin.json`
+  ];
 
   let totalProbes = 0;
   let passedProbes = 0;
-  let corsPasses = 0;
 
   for (const ua of config.waf.botUserAgents) {
     for (const ep of testEndpoints) {
@@ -25,23 +29,37 @@ export async function evaluateWAF(config: TargetConfig) {
         } else if ([401, 403, 429, 503].includes(res.status)) {
           details.push(`WAF/Bot block [HTTP ${res.status}] against UA: ${ua.slice(0, 30)}... on ${ep}`);
         }
-
-        const cors = res.headers['access-control-allow-origin'];
-        if (cors === '*' || typeof cors === 'string') {
-          corsPasses++;
-        }
       } catch (err: any) {
         details.push(`Connection failed for UA ${ua.slice(0, 30)}: ${err.message}`);
       }
     }
   }
 
+  // Evaluate CORS specifically on machine-readable discovery/API endpoints
+  let corsPasses = 0;
+  let corsChecked = 0;
+  for (const ep of corsEndpoints) {
+    corsChecked++;
+    try {
+      const res = await axios.get(ep, {
+        headers: { 'User-Agent': 'ModelContextProtocol-Client/1.0.0' },
+        timeout: config.waf.timeoutMs,
+        validateStatus: () => true
+      });
+      const cors = res.headers['access-control-allow-origin'];
+      if (cors === '*' || typeof cors === 'string') {
+        corsPasses++;
+        details.push(`CORS allowed (${cors}) on ${ep.replace(config.baseUrl, '')}`);
+      }
+    } catch {}
+  }
+
   const availabilityRatio = totalProbes > 0 ? passedProbes / totalProbes : 0;
-  const corsRatio = totalProbes > 0 ? corsPasses / totalProbes : 0;
+  const corsRatio = corsChecked > 0 ? corsPasses / corsChecked : 0;
   const score = (availabilityRatio * 2.0) + (corsRatio * 0.5);
 
   details.push(`Bot accessibility pass rate: ${(availabilityRatio * 100).toFixed(1)}%`);
-  details.push(`CORS compliance rate: ${(corsRatio * 100).toFixed(1)}%`);
+  details.push(`Machine discovery CORS compliance: ${(corsRatio * 100).toFixed(1)}%`);
 
   return { dimension: 'WAF & Bot Resiliency', score: Math.min(maxScore, score), maxScore, details };
 }

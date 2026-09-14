@@ -20,20 +20,23 @@ export interface TargetConfig {
 }
 
 export const defaultConfig: TargetConfig = {
-  baseUrl: process.env.TARGET_URL || 'https://dev.zivisaiah.com',
-  minPassingScore: parseFloat(process.env.AGENT_SCORE_GATE || '9.45'),
+  baseUrl: process.env.TARGET_URL || 'https://www.zivisaiah.com',
+  minPassingScore: parseFloat(process.env.AGENT_SCORE_GATE || '9.5'),
   discovery: {
     endpoints: [
       '/.well-known/webmcp.json',
       '/webmcp-manifest.json',
+      '/openapi.json',
+      '/.well-known/ai-plugin.json',
       '/llms.txt',
       '/robots.txt',
-      '/feed.xml'
+      '/feed.xml',
+      '/api/mcp'
     ],
-    htmlDiscoveryRelTags: ['webmcp-manifest', 'alternate', 'canonical']
+    htmlDiscoveryRelTags: ['webmcp-manifest', 'service-desc', 'alternate', 'canonical']
   },
   semantics: {
-    requiredJsonLdTypes: ['WebSite'],
+    requiredJsonLdTypes: ['WebSite', 'Person'],
     requireOpenGraph: true
   },
   actionability: {
