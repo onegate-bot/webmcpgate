@@ -25,3 +25,7 @@ npm run test:unit
 # Run integration tests (WAF, live bot UA probing, MCP tool endpoints)
 TEST_BASE_URL=https://dev.zivisaiah.com npm run test:integration
 ```
+
+## More from the toolkit
+
+Built and maintained by [Ziv Isaiah](https://www.zivisaiah.com). The rest of the open-source tooling, covering agent security, agentic runtimes and developer utilities, is catalogued at [zivisaiah.com/projects](https://www.zivisaiah.com/projects).
