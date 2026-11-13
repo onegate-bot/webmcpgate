@@ -20,4 +20,14 @@ describe('Unit: Static Manifest & Schema Linting', () => {
       expect(text.length).toBeGreaterThan(20);
     }
   });
+
+  it('validates Poppy Protocol (.well-known/poppy.json) v1.0 manifest structure', () => {
+    const poppyPath = path.resolve(__dirname, '../../public/.well-known/poppy.json');
+    expect(fs.existsSync(poppyPath)).toBe(true);
+    const poppy = JSON.parse(fs.readFileSync(poppyPath, 'utf-8'));
+    expect(poppy.protocol_version).toBe('1.0');
+    expect(poppy.organization?.name).toBeDefined();
+    expect(poppy.organization?.domain).toBeDefined();
+    expect(Boolean(poppy.web || poppy.apis || poppy.agent)).toBe(true);
+  });
 });

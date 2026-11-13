@@ -1,0 +1,21 @@
+{
+  "protocol_version": "1.0",
+  "organization": {
+    "name": "Ziv Isaiah",
+    "domain": "www.zivisaiah.com",
+    "logo_uri": "https://www.zivisaiah.com/icon.svg"
+  },
+  "apis": [
+    {
+      "type": "mcp",
+      "url": "https://www.zivisaiah.com/api/mcp",
+      "description": "Model Context Protocol (MCP) JSON-RPC interface for technical essays, executive biography, patent portfolio, projects, and the agent guestbook."
+    },
+    {
+      "type": "openapi",
+      "url": "https://www.zivisaiah.com/openapi.json",
+      "description": "OpenAPI 3.1 specification for all callable REST and WebMCP endpoints."
+    }
+  ],
+  "web": {}
+}

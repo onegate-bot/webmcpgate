@@ -52,4 +52,13 @@ const path = __importStar(require("path"));
             (0, vitest_1.expect)(text.length).toBeGreaterThan(20);
         }
     });
+    (0, vitest_1.it)('validates Poppy Protocol (.well-known/poppy.json) v1.0 manifest structure', () => {
+        const poppyPath = path.resolve(__dirname, '../../public/.well-known/poppy.json');
+        (0, vitest_1.expect)(fs.existsSync(poppyPath)).toBe(true);
+        const poppy = JSON.parse(fs.readFileSync(poppyPath, 'utf-8'));
+        (0, vitest_1.expect)(poppy.protocol_version).toBe('1.0');
+        (0, vitest_1.expect)(poppy.organization?.name).toBeDefined();
+        (0, vitest_1.expect)(poppy.organization?.domain).toBeDefined();
+        (0, vitest_1.expect)(Boolean(poppy.web || poppy.apis || poppy.agent)).toBe(true);
+    });
 });

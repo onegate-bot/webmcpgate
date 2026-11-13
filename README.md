@@ -6,7 +6,7 @@ A complete, production-ready framework for evaluating, linting, and continuously
 
 - **`agent-readiness/`**: Generic, schema-agnostic evaluation engine & CLI (4-dimension audit).
 - **`tests/`**: Unit & integration test suites using Vitest and Cheerio.
-- **`public/`**: Ready-to-deploy `webmcp-manifest.json`, `llms.txt`, and `.well-known/webmcp.json` templates.
+- **`public/`**: Ready-to-deploy `webmcp-manifest.json`, `llms.txt`, `.well-known/webmcp.json`, and `.well-known/poppy.json` (Personal Agent Protocol v1.0) templates.
 - **`.github/workflows/`**: Universal GitHub Actions CI/CD pipelines to enforce a score gate (default `>= 9.0/10.0`).
 - **`docs/`**: Comprehensive markdown reports and audit documentation.
 

@@ -7,6 +7,7 @@ exports.defaultConfig = {
     discovery: {
         endpoints: [
             '/.well-known/webmcp.json',
+            '/.well-known/poppy.json',
             '/webmcp-manifest.json',
             '/openapi.json',
             '/.well-known/ai-plugin.json',
